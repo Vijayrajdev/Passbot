@@ -63,7 +63,7 @@ bot.on("message", (msg) => {
   }
 
   if (
-    [5, 10, 16, 32, 32, 64].some((num) =>
+    [8, 14, 16, 18, 22].some((num) =>
       messageText.toString().includes(num.toString())
     )
   ) {
