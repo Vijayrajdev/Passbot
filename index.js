@@ -8,8 +8,18 @@ const PORT = process.env.PORT || 3030;
 const Pass_key = process.env.PASS_TOKEN;
 const Pass_host = process.env.PASS_HOST;
 const token = process.env.BOT_TOKEN;
+const bot = new TelegramBot(token);
 
-const bot = new TelegramBot(token, { polling: true });
+// Set the webhook for Telegram to send updates to
+const webhookUrl = "https://pass-bot.onrender.com";
+bot.setWebHook(webhookUrl);
+
+app.use(express.json());
+
+app.post("/telegram-webhook-path", (req, res) => {
+  bot.processUpdate(req.body);
+  res.sendStatus(200);
+});
 
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
@@ -53,7 +63,7 @@ bot.on("message", (msg) => {
 
   var bye = "bye";
   if (messageText.toString().toLowerCase().includes(bye)) {
-    bot.sendMessage(chatId, "Hope to see you around again , Bye");
+    bot.sendMessage(chatId, "Hope to see you around again, Bye");
   }
 
   if (
@@ -80,7 +90,6 @@ bot.on("message", (msg) => {
     });
   }
 });
-
 
 app.listen(PORT, () => {
   console.log(`server started on port ${PORT}`);
