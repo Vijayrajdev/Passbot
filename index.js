@@ -8,19 +8,20 @@ const PORT = process.env.PORT || 3030;
 const Pass_key = process.env.PASS_TOKEN;
 const Pass_host = process.env.PASS_HOST;
 const token = process.env.BOT_TOKEN;
-const bot = new TelegramBot(token);
+const bot = new TelegramBot(token, { polling: false });
 
 // Set the webhook for Telegram to send updates to
-const webhookUrl = "https://pass-bot.onrender.com";
+const webhookPath = "/telegram-webhook-path";
+const webhookUrl = `https://pass-bot.onrender.com${webhookPath}`;
 bot.setWebHook(webhookUrl);
 
 app.use(express.json());
 
-app.post("/telegram-webhook-path", (req, res) => {
+app.post(webhookPath, (req, res) => {
   bot.processUpdate(req.body);
   res.sendStatus(200);
 });
-
+console.log("live");
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
   bot.sendMessage(chatId, "Welcome to the Passbot!");
