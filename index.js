@@ -88,9 +88,8 @@ bot.on("message", (msg) => {
       const res = JSON.parse(body);
       const randomPassword = res.random_password;
       const img = `https://quickchart.io/qr?text=${randomPassword}`;
-      bot.sendMessage(chatId);
       bot.sendMessage(
-        msg.chat.id,
+        chatId,
         `Your new password is
 
 <code>${randomPassword}</code>
