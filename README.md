@@ -1,5 +1,10 @@
 # Passbot 🗝️
 
+[![forthebadge Made with JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=JavaScript&logoColor=black)](https://www.javascript.com/)
+![forthebadge Made with JavaScript](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
+![ForTheBadge built-with-love](https://img.shields.io/badge/.ENV-ECD53F.svg?style=for-the-badge&logo=dotenv&logoColor=black)
+<br>
+
 **Description:**
 Passbot is a Telegram bot designed to help users generate secure passwords of varying lengths quickly and easily. With Passbot, you can effortlessly create strong passwords tailored to your specific requirements, ensuring the safety of your online accounts and sensitive information.
 
@@ -25,11 +30,6 @@ Passbot is a Telegram bot designed to help users generate secure passwords of va
 - **User-Friendly:** Passbot features a user-friendly interface and intuitive commands, ensuring a seamless user experience for individuals of all technical backgrounds.
 
 Experience the convenience and security of password generation with Passbot, your trusted companion for creating strong and reliable passwords on Telegram!
-
-[![forthebadge Made with JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=JavaScript&logoColor=black)](https://www.javascript.com/)
-![forthebadge Made with JavaScript](https://img.shields.io/badge/OpenAI-412991.svg?style=for-the-badge&logo=OpenAI&logoColor=white)
-![ForTheBadge built-with-love](https://img.shields.io/badge/.ENV-ECD53F.svg?style=for-the-badge&logo=dotenv&logoColor=black)
-<br>
 
 ## Preview
 
