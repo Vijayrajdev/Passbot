@@ -1,4 +1,5 @@
 require("dotenv").config();
+const fs = require("fs");
 const express = require("express");
 const TelegramBot = require("node-telegram-bot-api");
 const request = require("request");
@@ -6,8 +7,6 @@ const PNGReader = require("pngjs").PNGReader;
 
 const app = express();
 const PORT = process.env.PORT || 3030;
-const Pass_key = process.env.PASS_TOKEN;
-const Pass_host = process.env.PASS_HOST;
 const token = process.env.BOT_TOKEN;
 const bot = new TelegramBot(token, { polling: false });
 
@@ -15,7 +14,6 @@ const bot = new TelegramBot(token, { polling: false });
 const webhookPath = "/telegram-webhook-path";
 const webhookUrl = `https://pass-bot.onrender.com${webhookPath}`;
 bot.setWebHook(webhookUrl);
-
 app.use(express.json());
 
 app.post(webhookPath, (req, res) => {
@@ -73,33 +71,59 @@ bot.on("message", (msg) => {
       messageText.toString().includes(num.toString())
     )
   ) {
-    const options = {
-      method: "GET",
-      url: "https://password-generator-by-api-ninjas.p.rapidapi.com/v1/passwordgenerator",
-      qs: { length: messageText },
-      headers: {
-        "X-RapidAPI-Key": Pass_key,
-        "X-RapidAPI-Host": Pass_host,
-      },
+    const loadWordsFromFile = (filename) => {
+      try {
+        const data = fs.readFileSync(filename, "utf8");
+        return data
+          .split("\n")
+          .map((word) => word.trim())
+          .filter((word) => word !== "");
+      } catch (err) {
+        console.error("Error reading words file:", err);
+        return [];
+      }
     };
 
-    request(options, function (error, response, body) {
-      if (error) throw new Error(error);
-      const res = JSON.parse(body);
-      const randomPassword = res.random_password;
-      const img = `https://quickchart.io/qr?text=${randomPassword}`;
-      bot.sendMessage(
-        chatId,
-        `Your new password is
+    const words = loadWordsFromFile("words.txt");
 
-<code>${randomPassword}</code>
+    const symbols = ["!", "@", "#", "$", "%", "^", "&", "*"];
+
+    function generatePassword(length) {
+      let password = "";
+
+      const numWords = Math.ceil(length / 6);
+
+      for (let i = 0; i < numWords; i++) {
+        const randomIndex = Math.floor(Math.random() * words.length);
+        password += words[randomIndex];
+
+        if (i < numWords - 1) {
+          password += symbols[Math.floor(Math.random() * symbols.length)];
+          password += Math.floor(Math.random() * 10);
+        }
+      }
+
+      password = password.slice(0, length);
+
+      return password;
+    }
+
+    const length = messageText;
+    const password = generatePassword(length);
+    console.log(password);
+
+    const img = `https://quickchart.io/qr?text=${password}`;
+    bot.sendMessage(
+      chatId,
+      `Your new password is
+
+<code>${password}</code>
 
 ${img}`,
-        {
-          parse_mode: "HTML",
-        }
-      );
-    });
+      {
+        parse_mode: "HTML",
+      }
+    );
   }
 });
 
