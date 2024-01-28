@@ -1,8 +1,10 @@
 require("dotenv").config();
-
+const express = require("express");
 const TelegramBot = require("node-telegram-bot-api");
 const request = require("request");
 
+const app = express();
+const PORT = process.env.PORT || 3030;
 const Pass_key = process.env.PASS_TOKEN;
 const Pass_host = process.env.PASS_HOST;
 const token = process.env.BOT_TOKEN;
@@ -77,4 +79,9 @@ bot.on("message", (msg) => {
       bot.sendMessage(chatId, `Your new password is "${randomPassword}"`);
     });
   }
+});
+
+
+app.listen(PORT, () => {
+  console.log(`server started on port ${PORT}`);
 });
