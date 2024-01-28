@@ -31,9 +31,9 @@ bot.onText(/\/help/, (msg) => {
   bot.sendMessage(
     chatId,
     `You can use this bot to generate passwords. Here are the list of commands and usage:
-  1. /start:- To start the bot.
-  2. /help:- To open help menu.
-  3. /password:- To generate passwords.`
+-/start: Initiate interaction with Passbot.
+-/help: Access the help menu to learn about available commands and usage guidelines.
+-/password: Initiate the password generation process and select the desired length from predefined options.`
   );
 });
 
@@ -85,8 +85,11 @@ bot.on("message", (msg) => {
       if (error) throw new Error(error);
       const res = JSON.parse(body);
       const randomPassword = res.random_password;
-      console.log(randomPassword);
-      bot.sendMessage(chatId, `Your new password is "${randomPassword}"`);
+      bot.sendMessage(
+        chatId,
+        `Your new password is 
+      "${randomPassword}"`
+      );
     });
   }
 });
