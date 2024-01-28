@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const TelegramBot = require("node-telegram-bot-api");
 const request = require("request");
+const PNGReader = require("pngjs").PNGReader;
 
 const app = express();
 const PORT = process.env.PORT || 3030;
@@ -21,7 +22,7 @@ app.post(webhookPath, (req, res) => {
   bot.processUpdate(req.body);
   res.sendStatus(200);
 });
-console.log("live");
+
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
   bot.sendMessage(chatId, "Welcome to the Passbot!");
@@ -86,10 +87,18 @@ bot.on("message", (msg) => {
       if (error) throw new Error(error);
       const res = JSON.parse(body);
       const randomPassword = res.random_password;
+      const img = `https://quickchart.io/qr?text=${randomPassword}`;
+      bot.sendMessage(chatId);
       bot.sendMessage(
-        chatId,
-        `Your new password is 
-      "${randomPassword}"`
+        msg.chat.id,
+        `Your new password is
+
+<code>${randomPassword}</code>
+
+${img}`,
+        {
+          parse_mode: "HTML",
+        }
       );
     });
   }
