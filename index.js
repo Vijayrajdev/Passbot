@@ -41,11 +41,7 @@ bot.onText(/\/password/, (msg) => {
   const chatId = msg.chat.id;
   bot.sendMessage(chatId, "Select the length that you want", {
     reply_markup: {
-      keyboard: [
-        ["5", "10"],
-        ["16", "32"],
-        ["32", "64"],
-      ],
+      keyboard: [["8", "14"], ["16", "18"], ["22"]],
     },
   });
 });
@@ -86,9 +82,29 @@ bot.on("message", (msg) => {
 
     const words = loadWordsFromFile("words.txt");
 
-    const symbols = ["!", "@", "#", "$", "%", "^", "&", "*"];
+    const symbols = [
+      "!",
+      "@",
+      "#",
+      "$",
+      "%",
+      "^",
+      "&",
+      "*",
+      "(",
+      ")",
+      "{",
+      "}",
+      "/",
+      "?",
+      "<",
+      ">",
+      "|",
+      "[",
+      "]",
+    ];
 
-    function generatePassword(length) {
+    const generatePassword = (length) => {
       let password = "";
 
       const numWords = Math.ceil(length / 6);
@@ -106,7 +122,7 @@ bot.on("message", (msg) => {
       password = password.slice(0, length);
 
       return password;
-    }
+    };
 
     const length = messageText;
     const password = generatePassword(length);
