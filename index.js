@@ -49,6 +49,8 @@ bot.onText(/\/password/, (msg) => {
 bot.on("message", (msg) => {
   const messageText = msg.text;
   const chatId = msg.chat.id;
+  const firstName = msg.from.first_name;
+  const username = msg.from.username; // Get the username
   var hi = "hi";
   if (messageText.toString().toLowerCase().indexOf(hi) === 0) {
     bot.sendMessage(
