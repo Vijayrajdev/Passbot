@@ -52,14 +52,17 @@ bot.on("message", (msg) => {
   var hi = "hi";
   if (messageText.toString().toLowerCase().indexOf(hi) === 0) {
     bot.sendMessage(
-      msg.from.id,
-      messageText + " " + msg.from.first_name + " !!"
+      chatId,
+      `Hi @${username} (${firstName}) !!` // Tag the user's profile and display the first name
     );
   }
 
   var bye = "bye";
   if (messageText.toString().toLowerCase().includes(bye)) {
-    bot.sendMessage(chatId, "Hope to see you around again, Bye");
+    bot.sendMessage(
+      chatId,
+      `Hope to see you around again, @${username} (${firstName}). Bye`
+    );
   }
 
   if (
