@@ -16,23 +16,9 @@ const webhookUrl = `https://pass-bot.onrender.com${webhookPath}`;
 bot.setWebHook(webhookUrl);
 app.use(express.json());
 
-// Respond only to POST requests at the webhook endpoint
-app.post('/telegram-webhook-path', (req, res) => {
-  
-  // Generate a response
-  const response = {
-    // Your response payload here
-    text: "Hello from the bot!, I'm Alive😊"
-  };
-  
-  // Send the response back to Telegram as JSON
-  res.setHeader('Content-Type', 'application/json');
-  res.json(response);
-});
-
-// Respond with 404 for all other routes
-app.use((req, res) => {
-  res.status(404).send('Not found');
+// Respond to GET requests at the webhook endpoint
+app.get('/telegram-webhook-path', (req, res) => {
+  res.send("Hello from the bot!, I'm Alive😊");
 });
 
 app.post(webhookPath, (req, res) => {
