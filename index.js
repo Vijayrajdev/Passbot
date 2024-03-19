@@ -15,21 +15,14 @@ const webhookPath = "/telegram-webhook-path";
 const webhookUrl = `https://pass-bot.onrender.com${webhookPath}`;
 bot.setWebHook(webhookUrl);
 app.use(express.json());
-app.use(bodyParser.json());
 
 // Respond only to POST requests at the webhook endpoint
 app.post('/telegram-webhook-path', (req, res) => {
-  // Handle incoming update from Telegram
-  const update = req.body;
-  
-  // Process the update
-  // For example, log the update to the console
-  console.log('Received update:', update);
   
   // Generate a response
   const response = {
     // Your response payload here
-    text: 'Hello from the bot!'
+    text: "Hello from the bot!, I'm Alive😊"
   };
   
   // Send the response back to Telegram as JSON
